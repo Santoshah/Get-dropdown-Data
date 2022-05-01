@@ -1,0 +1,86 @@
+<form action="">
+  <label for="category">Category:</label>
+  <select name="category" id="category" onchange="selectCategory()">
+    <option value="">Select Value</option>
+    <option value="fruit">Fruit</option>
+    <option value="car">Car</option>
+    <option value="sports">Sports</option>
+  </select>
+
+  <br />
+  <br />
+  <label for="catData">Second Dropdown</label>
+  <select name="catData" id="catData"></select>
+
+  <br />
+  <br />
+
+  <button type="button" onclick="getValues()">Get Selected Value</button>
+
+  <div>
+    <h3>Selected value:</h3>
+
+    <div id="result">
+      <p>Click button display selected value.</p>
+    </div>
+  </div>
+</form>
+
+<script>
+  let catObject = {
+    car: [
+      { id: 'maruti', name: 'Maruti' },
+      { id: 'tata-nexon', name: 'Tata Nexon' },
+      { id: 'maruti', name: 'Maruti' },
+    ],
+    fruit: [
+      { id: 'apple', name: 'Apple' },
+      { id: 'mango', name: 'Mango' },
+      { id: 'banana', name: 'banana' },
+    ],
+    sports: [
+      { id: 'cricket', name: 'Cricket' },
+      { id: 'baseball', name: 'Base Ball' },
+      { id: 'table-tennis', name: 'Table Tennis' },
+    ],
+  };
+  // const appDiv = document.getElementById('category');
+
+  // appDiv.innerHTML = `<h1>JS Starter</h1>`;
+
+  function selectCategory() {
+    console.log(document.getElementById('category').value);
+    let selValue = document.getElementById('category').value;
+    let secondDropdown = catObject[selValue];
+    console.log(secondDropdown);
+    if (!selValue) {
+      document.getElementById('result').innerHTML = 'No Dropdown Selected';
+      return false;
+    }
+    // loop over category sub object to fill second secondDropdown
+    let temp = '';
+    for (let i = 0; i < secondDropdown.length; i++) {
+      temp += `<option value="${secondDropdown[i].id}">${secondDropdown[i].name}</option>`;
+    }
+
+    console.log(temp);
+    document.getElementById('catData').innerHTML = temp;
+  }
+
+  function getValues() {
+    let firstDropdownSelected = document.getElementById('category').value;
+    if (!firstDropdownSelected) {
+      document.getElementById('result').innerHTML = 'No Dropdown Selected';
+      return false;
+    }
+    let secondDropdownData = catObject[firstDropdownSelected];
+
+    let temp = `<h2>${firstDropdownSelected}</h2> <ul>`;
+    for (let i = 0; i < secondDropdownData.length; i++) {
+      temp += `<li>${secondDropdownData[i].name}</li>`;
+    }
+    temp += `</ul>`;
+    console.log(temp);
+    document.getElementById('result').innerHTML = temp;
+  }
+</script>
